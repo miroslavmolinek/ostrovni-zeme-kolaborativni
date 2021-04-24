@@ -18,7 +18,9 @@ const responses = document.getElementById('responses')
 
 
 // PROMENNE
-let groupName, currentSection, currentQuestionGlobal, results
+let groupName, results
+var currentSection = 2
+var currentQuestion = 1
 
 
 // FUNKCE
@@ -30,33 +32,52 @@ function closeGroup(params) {
     
 }
 
-function sectionUpdate(e) {
-    
+function sectionUpdate() {
+    currentSection = sectionSelection.selectedIndex + 2
+    console.log('Sekce zmenena na ' + currentSection)
 }
 
-// var val = "Fish";
-// var sel = document.getElementById('sel');
-// document.getElementById('btn').onclick = function() {
-//   var opts = sel.options;
-//   for (var opt, j = 0; opt = opts[j]; j++) {
-//     if (opt.value == val) {
-//       sel.selectedIndex = j;
-//       break;
-//     }
-//   }
-// }
-
-
 function sectionForward() {
-    console.log(sectionSelection)
+    if(sectionSelection.selectedIndex < sectionSelection.options.length-1) {
+        sectionSelection.selectedIndex++
+        sectionUpdate() 
+    }
 }
 
 function sectionPrevious() {
-    
+    if(sectionSelection.selectedIndex > 0) {
+        sectionSelection.selectedIndex--
+        sectionUpdate() 
+    }
 }
-sectionButtonForward.addEventListener('click',sectionForward)
-sectionButtonPrevious.addEventListener('click',sectionPrevious)
+
+function questionUpdate() {
+    currentQuestion = questionSelection.selectedIndex + 1
+    console.log('Otazka zmenena na ' + currentQuestion)
+}
+
+function questionForward() {
+    if(questionSelection.selectedIndex < questionSelection.options.length-1) {
+        questionSelection.selectedIndex++
+        questionUpdate() 
+    }
+}
+
+function questionPrevious() {
+    if(questionSelection.selectedIndex > 0) {
+        questionSelection.selectedIndex--
+        questionUpdate() 
+    }
+}
 
 
 
 // EVENT LISTENERS
+
+sectionButtonForward.addEventListener('click',sectionForward)
+sectionButtonPrevious.addEventListener('click',sectionPrevious)
+sectionSelection.addEventListener('change', sectionUpdate)
+
+questionButtonForward.addEventListener('click',questionForward)
+questionButtonPrevious.addEventListener('click',questionPrevious)
+questionSelection.addEventListener('change', questionUpdate)
