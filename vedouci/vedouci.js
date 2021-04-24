@@ -46,6 +46,7 @@ function startGroup(params) {
     inputGroupName.setAttribute("disabled", "true")
     groupName = inputGroupName.value
     console.log('Vytvorena skupina ' + groupName)
+    updateUserList()
 }
 
 function closeGroup(params) {
@@ -55,6 +56,8 @@ function closeGroup(params) {
     inputGroupName.focus()
     groupName = ""
     console.log('Skupina ukoncena')
+    onlineUsers = []
+    updateUserList()
 }
 
 function sectionUpdate() {
@@ -95,9 +98,30 @@ function questionPrevious() {
     }
 }
 
+function updateUserList() {
+    if(!groupName) {
+        userCounter.innerHTML = "0"
+        userList.innerHTML = "Zacni vytvorenim skupiny"
+    } else {
+        userCounter.innerHTML = onlineUsers.length
+
+        userList.innerHTML = ""
+        onlineUsers.forEach(user => {
+            const elem = document.createElement('li')
+            elem.innerText = user.name
+            elem.dataset.userId = user.id
+            userList.appendChild(elem)
+        })
+    }
+}
+
 
 
 // EVENT LISTENERS
+
+window.onload = function() {
+    updateUserList()
+};
 
 sectionButtonForward.addEventListener('click',sectionForward)
 sectionButtonPrevious.addEventListener('click',sectionPrevious)
