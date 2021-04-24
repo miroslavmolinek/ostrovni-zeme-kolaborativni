@@ -21,15 +21,40 @@ const responses = document.getElementById('responses')
 let groupName, results
 var currentSection = 2
 var currentQuestion = 1
+var onlineUsers = [
+    {id : '123456789', name : 'Krtek'},
+    {id : '131927342', name : 'Krtek'},
+    {id : '453421434', name : 'Krtek'},
+    {id : '346676543', name : 'Krtek'},
+    {id : '123436565', name : 'Krtek'},
+    {id : '345235353', name : 'Krtek'},
+    {id : '123456789', name : 'Krtek'},
+    {id : '123456789', name : 'Krtek'},
+    {id : '123456789', name : 'Krtek'},
+    {id : '123456789', name : 'Krtek'},
+    {id : '123456789', name : 'Krtek'},
+    {id : '123456789', name : 'Krtek'},
+    {id : '123456789', name : 'Krtek'},
+    {id : '123456789', name : 'Krtek'}
+]
 
 
 // FUNKCE
-function createGroup(params) {
-    
+function startGroup(params) {
+    buttonGroupStart.classList.toggle('hide')
+    buttonGroupClose.classList.toggle('hide')
+    inputGroupName.setAttribute("disabled", "true")
+    groupName = inputGroupName.value
+    console.log('Vytvorena skupina ' + groupName)
 }
 
 function closeGroup(params) {
-    
+    buttonGroupStart.classList.toggle('hide')
+    buttonGroupClose.classList.toggle('hide')
+    inputGroupName.removeAttribute("disabled")
+    inputGroupName.focus()
+    groupName = ""
+    console.log('Skupina ukoncena')
 }
 
 function sectionUpdate() {
@@ -81,3 +106,6 @@ sectionSelection.addEventListener('change', sectionUpdate)
 questionButtonForward.addEventListener('click',questionForward)
 questionButtonPrevious.addEventListener('click',questionPrevious)
 questionSelection.addEventListener('change', questionUpdate)
+
+buttonGroupStart.addEventListener('click', startGroup)
+buttonGroupClose.addEventListener('click', closeGroup)
