@@ -127,6 +127,32 @@ section.rozhrani > .obsah > .bocni > h4 {
     border: none;
     font-size: 50px;
 }
+
+.prihlaseni > li[data-user-status="connected"]::before { 
+    color: hsl(85, 90%, 50%);
+}
+
+.prihlaseni > li[data-user-status="disconnected"]::before {
+    color: hsl(10, 90%, 50%);
+}
+
+.prihlaseni > li[data-user-gender="man"]::before { 
+    content: "\2642";
+    display: block;
+    float: left;
+    font-size: 0.7em;
+    margin-right: 0.7em;
+    margin-top: 0.2em;
+}
+.prihlaseni > li[data-user-gender="woman"]::before { 
+    content: "\2640";
+    display: block;
+    float: left;
+    font-size: 0.7em;
+    margin-right: 0.7em;
+    margin-top: 0.2em;
+}
+
 /* 
 
 

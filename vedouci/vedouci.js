@@ -1,3 +1,6 @@
+// REQUIRE LIBRARIES
+//const csv = require('csvtojson')
+
 // KONSTANTY
 
 const buttonGroupStart = document.getElementById('button-group-start')
@@ -16,35 +19,61 @@ const questionBody = document.getElementById('question-body')
 const questionOptions = document.getElementById('question-options')
 const responses = document.getElementById('responses')
 
+const questionsCSV = '../questionsOptionsLaws.csv'
+
 
 // PROMENNE
-let groupName, results
+let groupName, questionsJSON 
 var currentSection = 2
 var currentQuestion = 1
 var onlineUsers = [
-    {id : '123456789', name : 'Krtek'},
-    {id : '131927342', name : 'Krtek'},
-    {id : '453421434', name : 'Krtek'},
-    {id : '346676543', name : 'Krtek'},
-    {id : '123436565', name : 'Krtek'},
-    {id : '345235353', name : 'Krtek'},
-    {id : '123456789', name : 'Krtek'},
-    {id : '123456789', name : 'Krtek'},
-    {id : '123456789', name : 'Krtek'},
-    {id : '123456789', name : 'Krtek'},
-    {id : '123456789', name : 'Krtek'},
-    {id : '123456789', name : 'Krtek'},
-    {id : '123456789', name : 'Krtek'},
-    {id : '123456789', name : 'Krtek'}
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'woman'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'disconnected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'woman'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'woman'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'woman'},
+    {id : '123456789', name : 'Krtek', status : 'disconnected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'disconnected', gender : 'woman'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'woman'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'woman'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'woman'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'man'},
+    {id : '123456789', name : 'Krtek', status : 'connected', gender : 'woman'}
 ]
 
 
 // FUNKCE
-function startGroup(params) {
+function startGroup(name) {
     buttonGroupStart.classList.toggle('hide')
     buttonGroupClose.classList.toggle('hide')
     inputGroupName.setAttribute("disabled", "true")
-    groupName = inputGroupName.value
+    if(typeof name == "string") { 
+        groupName = name
+        inputGroupName.value = name
+    } else { 
+        groupName = inputGroupName.value
+    }
     console.log('Vytvorena skupina ' + groupName)
     updateUserList()
 }
@@ -110,17 +139,27 @@ function updateUserList() {
             const elem = document.createElement('li')
             elem.innerText = user.name
             elem.dataset.userId = user.id
+            elem.dataset.userStatus = user.status
+            elem.dataset.userGender = user.gender
             userList.appendChild(elem)
         })
     }
 }
 
-
+// function questionsFromCSV() {
+//     csv()
+//     .fromFile(questionsCSV)
+//     .then((questionsJSON)=>{
+//         console.log(questionsJSON);
+//     })
+// }
 
 // EVENT LISTENERS
 
 window.onload = function() {
     updateUserList()
+    //startGroup('Plyskavice')
+    questionsFromCSV()
 };
 
 sectionButtonForward.addEventListener('click',sectionForward)

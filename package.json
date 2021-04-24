@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/marketajur/ostrovni-zeme-kolabo/issues"
   },
-  "homepage": "https://github.com/marketajur/ostrovni-zeme-kolabo#readme"
+  "homepage": "https://github.com/marketajur/ostrovni-zeme-kolabo#readme",
+  "dependencies": {
+    "csvtojson": "^2.0.10"
+  }
 }
