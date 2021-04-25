@@ -208,6 +208,21 @@ function generateAndAppendLawsFromAnswersFromOnlineGroup(params) {
     
 }
 
+function pridatHlas(question = currentQuestion, option) {
+    socket.emit('pridat hlas', {questionNumber : question, option : option})
+    console.log('pridan hlas ' + question + option)
+}
+
+function odebratHlas(question = currentQuestion) {
+    socket.emit('odebrat hlas', {questionNumber : question})
+    console.log('odebran hlas ' + question)
+}
+
+function zmenitHlas(question = currentQuestion, option) {
+    odebratHlas(question)
+    pridatHlas(question, option)
+}
+
 
 // ON LOAD
 
@@ -215,7 +230,7 @@ window.onload = function() {
     showSectionByNumber(1)
     showQuestionByNumber(1)
 
-    //socket.emit('prihlasit dite', {userId : socket.id, name: "Mira", gender: "man", group: "slunicko"});
+    socket.emit('prihlasit dite', {userId : socket.id, name: "Mira", gender: "man", group: "slunicko"});
     
     var server = {}
     socket.on('state of server', function(msg) {
@@ -224,12 +239,19 @@ window.onload = function() {
             groupLeaderId : msg.groupLeaderId, 
             onlineUsers : msg.onlineUsers, 
             sectionNumberGlobal : msg.sectionNumberGlobal, 
-            questionNumberGlobal : msg.questionNumberGlobal
+            questionNumberGlobal : msg.questionNumberGlobal,
+            results : msg.results
         }
         showSectionByNumber(server.sectionNumberGlobal)
         showQuestionByNumber(server.questionNumberGlobal)
         console.log(server)
     })
+
+    zmenitHlas(1,2)
+    zmenitHlas(1,1)
+    zmenitHlas(1,3)
+    zmenitHlas(2,2)
+    zmenitHlas(2,3)
 };
 
 

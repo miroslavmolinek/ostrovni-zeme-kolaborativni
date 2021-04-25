@@ -17,11 +17,12 @@ app.get('/vedouci', (req, res) => {
 
 // app variables
 
-var groupName = ""
+var groupName = "slunicko"
 var groupLeaderId = ""
 var onlineUsers = []
-var sectionNumberGlobal = 2
+var sectionNumberGlobal = 3
 var questionNumberGlobal = 1
+var results = [[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
 
 io.on('connection', (socket) => {
     //socket.broadcast.emit('connected user', {userId : socket.id, text: ""});
@@ -111,6 +112,38 @@ io.on('connection', (socket) => {
                 sendErrorBack('error - group is set by someone else');
             }
         }
+    });
+
+    socket.on('pridat hlas', (msg) => {
+        // msg.questionNumber
+        // msg.option
+        
+        onlineUsers.forEach(user => {
+            if(user.id == socket.id) {
+                user.answerForQuestionIndex[msg.questionNumber-1] = msg.option
+                sendSuccessBack('Zahlasováno')
+            }
+        })
+
+        results[msg.questionNumber-1][msg.option-1]++
+
+        sendServerState()
+    });
+
+    socket.on('odebrat hlas', (msg) => {
+        // msg.questionNumber
+        let option
+        
+        onlineUsers.forEach(user => {
+            if(user.id == socket.id) {
+                option = user.answerForQuestionIndex[msg.questionNumber-1]
+                user.answerForQuestionIndex.splice(msg.questionNumber-1,1)
+            }
+        })
+
+        option ? results[msg.questionNumber-1][option-1]-- : false
+
+        sendServerState()
     });
     
     socket.on('disconnect', () => {
@@ -230,6 +263,7 @@ function changeUserToConnected(id, msg) {
             user.name = msg.name
             user.gender = msg.gender
             user.group = msg.group
+            user.answerForQuestionIndex = []
             sendSuccess(id, 'Úspěšné přihlášení')
             sendSuccessToLeader('Úspěšné přihlášení dítěte: ' + msg.name)
             sent = true
@@ -241,7 +275,7 @@ function changeUserToConnected(id, msg) {
 function sendServerState() {
     onlineUsers.forEach(user => {
         if(user.status == "leader" || user.status == "connected") {
-            io.to(user.id).emit('state of server', {groupName : groupName, groupLeaderId : groupLeaderId, onlineUsers : onlineUsers, sectionNumberGlobal : sectionNumberGlobal, questionNumberGlobal : questionNumberGlobal})
+            io.to(user.id).emit('state of server', {groupName : groupName, groupLeaderId : groupLeaderId, onlineUsers : onlineUsers, sectionNumberGlobal : sectionNumberGlobal, questionNumberGlobal : questionNumberGlobal, results : results})
         }
     })
 }

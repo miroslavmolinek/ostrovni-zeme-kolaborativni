@@ -251,7 +251,8 @@ socket.on('state of server', function(msg) {
         groupLeaderId : msg.groupLeaderId, 
         onlineUsers : msg.onlineUsers, 
         sectionNumberGlobal : msg.sectionNumberGlobal, 
-        questionNumberGlobal : msg.questionNumberGlobal
+        questionNumberGlobal : msg.questionNumberGlobal,
+        results : msgresults
     }
     if(server.groupName) {
         // join group created by another leader
