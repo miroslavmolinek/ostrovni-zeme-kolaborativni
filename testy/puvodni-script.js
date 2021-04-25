@@ -159,18 +159,17 @@ function resetState() {
 }
 
 const questions = [
-{
-question: 'Mladá dívka se u úřadů dovolává pomoci potom, co ji rodina zakazuje sňatek, pro který se rozhodla a hrozí jí vyhnáním z domu. Tradice, k níž se její rodina hlásí, přikazuje, že výběr životního partnera závisí na rozhodnutí rodičů.', 
+    {   question: 'Mladá dívka se u úřadů dovolává pomoci potom, co ji rodina zakazuje sňatek, pro který se rozhodla a hrozí jí vyhnáním z domu. Tradice, k níž se její rodina hlásí, přikazuje, že výběr životního partnera závisí na rozhodnutí rodičů.', 
         answers: [
-            {text: 'Nebudete dívce pomáhat, protože jde o soukromou záležitost.', zakon: 'ÚŘADY NIJAK NEZASAHUJÍ DO RODINNÉHO ŽIVOTA'},
-           
-            {text: 'Zakážete tradici týkající se výběru partnerů a budete postihovat její dodržování.', zakon:'JSOU ZAKÁZÁNY NUCENÉ SŇATKY A DODRŽOVÁNÍ TRADIC (JAKO JE VÝBĚR PARTNERA RODIČI) JE TRESTÁNO.'},
-           
-            {text: 'Z veřejných zdrojů dívce zajistíte dočasné bydlení, pro realizaci jejího rozhodnutí.', zakon: 'JSOU RESPEKTOVÁNY KULTURNÍ TRADICE, ALE JE POSKYTOVÁNA PODPORA JEDINCŮM, KTEŘÍ NESOU NEGATIVNÍ NÁSLEDKY JEJICH NEDODRŽENÍ.' },
-                ]
-            },
-{
-    question: 'Skupina občanů veřejně prezentuje svůj názor, že určité etnické a sexuální menšiny podrývají pořádek a dobrou morálku na ostrově. Tato skupina otevřeně usiluje o omezení některých práv členů menšin.', 
+            {   text: 'Nebudete dívce pomáhat, protože jde o soukromou záležitost.', zakon: 'ÚŘADY NIJAK NEZASAHUJÍ DO RODINNÉHO ŽIVOTA'},
+            
+            {   text: 'Zakážete tradici týkající se výběru partnerů a budete postihovat její dodržování.', zakon:'JSOU ZAKÁZÁNY NUCENÉ SŇATKY A DODRŽOVÁNÍ TRADIC (JAKO JE VÝBĚR PARTNERA RODIČI) JE TRESTÁNO.'},
+            
+            {   text: 'Z veřejných zdrojů dívce zajistíte dočasné bydlení, pro realizaci jejího rozhodnutí.', zakon: 'JSOU RESPEKTOVÁNY KULTURNÍ TRADICE, ALE JE POSKYTOVÁNA PODPORA JEDINCŮM, KTEŘÍ NESOU NEGATIVNÍ NÁSLEDKY JEJICH NEDODRŽENÍ.' },
+        ]
+    },
+    {
+        question: 'Skupina občanů veřejně prezentuje svůj názor, že určité etnické a sexuální menšiny podrývají pořádek a dobrou morálku na ostrově. Tato skupina otevřeně usiluje o omezení některých práv členů menšin.', 
         answers: [
             {text: 'Budete činnost této skupiny ignorovat.', zakon: 'NEVĚNUJE SE POZORNOST PŮSOBENÍ SKUPIN, KTERÉ USILUJÍ O POTLAČENÍ PRÁV PŘÍSLUŠNÍKŮ MENŠIN.'},
            

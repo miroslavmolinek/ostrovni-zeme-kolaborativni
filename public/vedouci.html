@@ -7,6 +7,10 @@
     <title>Prostředí pro vedoucího</title>
     <link rel="stylesheet" href="./vedouci.css">
     <script src="https://kit.fontawesome.com/adc65fe8a9.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+    <script>
+        var socket = io();
+    </script>
 </head>
 <body>
     <section class="rozhrani">
@@ -46,18 +50,25 @@
                         <i class="fas fa-caret-left"></i>
                          </button>
                         <select id="question-selection">
-                        <option>1) Z jiného ostrova připluly stovky lidí...</option>
-                        <option>2) </option>
-                        <option>3) </option>
-                        <option>4) </option>
-                        <option>5) </option>
-                        <option>6) </option>
+                        <option>1) Skupina občanů často kritizuje rozhodnutí...</option>
+                        <option>2) Z jiného ostrova připlulo asi 500 lidí...</option>
+                        <option>3) Jedna dvacetiletá dívka se u úřadů dovolává pomoci...</option>
+                        <option>4) Skupina občanů veřejně prezentuje svůj názor...</option>
+                        <option>5) Několik rodin se chce odstěhovat za prací...</option>
+                        <option>6) Rozhodujete o volebním právu občanů...</option>
+                        <option>7) Určité skupiny obyvatel...</option>
                         </select>
                         <button id="question-button-forward" class="tlacitka-sipky"> <i class="fas fa-caret-right"></i>
                         </button>
                     </div>
-                        <h3>PLACEHOLDER Z jiného ostrova připluly stovky lidí utíkající před válkou. Tito lidé mají jiné zvyky, mluví cizím jazykem a přicházejí bez prostředků. Pro vás by jejich přijetí znamenalo tolerovat jejich odlišnost (projevovanou v mezích zákona) a pomoci jim určitými materiálními prostředky.</h3>
-                        <p>PLACEHOLDER Přijmete utečence a dovolíte jim, aby s vámi žili na ostrově do doby, než se budou moci vrátit. <hr> PLACEHOLDER Odmítnete je všechny s tím, aby pokračovali v cestě.<hr>PLACEHOLDER Přijmete pouze ty běžence, kteří prokážou, že jim v jejich vlasti opravdu hrozí vážné nebezpečí pro předejetí komplikací.</p>
+                        <h3 id="question-body">PLACEHOLDER Z jiného ostrova připluly stovky lidí utíkající před válkou. Tito lidé mají jiné zvyky, mluví cizím jazykem a přicházejí bez prostředků. Pro vás by jejich přijetí znamenalo tolerovat jejich odlišnost (projevovanou v mezích zákona) a pomoci jim určitými materiálními prostředky.</h3>
+                        <div id="question-options">
+                            <p>PLACEHOLDER Přijmete utečence a dovolíte jim, aby s vámi žili na ostrově do doby, než se budou moci vrátit.</p>
+                            <hr>
+                            <p>PLACEHOLDER Odmítnete je všechny s tím, aby pokračovali v cestě.</p>
+                            <hr>
+                            <p>PLACEHOLDER Přijmete pouze ty běžence, kteří prokážou, že jim v jejich vlasti opravdu hrozí vážné nebezpečí pro předejetí komplikací.</p>
+                        </div>
                     </div>
                 
                 <div class="radek-3">
@@ -109,45 +120,9 @@
         </div>
        
     </section>
-        <!-- 
-        <div class="vyber-sekce">
-            <h2>VÝBĚR SEKCE</h2>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>6A</button>
-            <button>6B</button>
-        </div>
-        <div class="vyber-situace">
-            <h2>VÝBĚR SITUACE</h2>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <h3>PLACEHOLDER Zadání situace</h3>
-            <p>a) PLACEHOLDER Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut eveniet nesciunt commodi quaerat tempora cupiditate necessitatibus nemo placeat expedita, quis, reprehenderit qui consequuntur alias magni exercitationem delectus. Eaque, molestiae nobis?</p>
-            <p>b) PLACEHOLDER Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut eveniet nesciunt commodi quaerat tempora cupiditate necessitatibus nemo placeat expedita, quis, reprehenderit qui consequuntur alias magni exercitationem delectus. Eaque, molestiae nobis?</p>
-            <p>c) PLACEHOLDER Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut eveniet nesciunt commodi quaerat tempora cupiditate necessitatibus nemo placeat expedita, quis, reprehenderit qui consequuntur alias magni exercitationem delectus. Eaque, molestiae nobis?</p>
-        </div>
-        <div class="panel-s-prihlasenymi">
-            <h3>PLACEHOLDER 24</h3>
-            <ul>PŘIHLÁŠENÍ
-                <li>placeholder</li>>
-            </ul>
-        </div>
-        <div class="vysledky">
-            <h2>VÝSLEDKY</h2>
-            <div class="vysledky-wrap">
-                <h3>Znění otázky</h3>
-                <p> odpověď A: 5hlasů/x%</p>
-                <p> odpověď B: 5hlasů/x%</p>
-                <p> odpověď C: 5hlasů/x%</p>
-            </div>
-        </div> -->
-
 </body>
+<script src="./questions.js"></script>
 <script src="./vedouci.js"></script>
+<script>
+</script>
 </html>

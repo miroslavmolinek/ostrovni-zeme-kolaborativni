@@ -28,11 +28,14 @@ const sectionVyhodnoceni = document.getElementById('vyhodnoceni')
 const laws = document.getElementById('laws')
 
 // Section persona
+const sectionPersona = document.getElementById('persona')
 const personaCard = document.getElementById('persona-card')
 const personaSummary = document.getElementById('persona-summary')
 
+// My constants
+const numerOfSections = 7
 
-// PROMENNE
+// VARIABLES
 var currentSection = 1
 var currentQuestion = 1
 var localQuestionAnswersInOrder = []
@@ -63,15 +66,73 @@ function tryToLoginAndStartRealTimeSocket() {
 }
 
 function showSectionByNumber(sectionNumber) {
+    switch (sectionNumber) {
+        case 1:
+            currentSection = sectionNumber
+            updateCSSclassHideForSectionByNumber(currentSection-1)
+            break;
+        case 2:
+            currentSection = sectionNumber
+            updateCSSclassHideForSectionByNumber(currentSection-1)
+            break;
+        case 3:
+            currentSection = sectionNumber
+            updateCSSclassHideForSectionByNumber(currentSection-1)
+            break;
+        case 4:
+            currentSection = sectionNumber
+            updateCSSclassHideForSectionByNumber(currentSection-1)
+            break;
+        case 5:
+            currentSection = sectionNumber
+            updateCSSclassHideForSectionByNumber(currentSection-1)
+            break;
+        case 6:
+            currentSection = sectionNumber
+            updateCSSclassHideForSectionByNumber(currentSection-1)
+            sectionPersona.classList.remove("active")
+            break;
+        case 7:
+            currentSection = sectionNumber
+            updateCSSclassHideForSectionByNumber(currentSection-2)
+            sectionPersona.classList.add("active")
+            break;
+        default:
+            console.log("Pouziti neplatneho cisla sekce pro zmenu")
+            break;
+    }
     
 }
 
 function nextSection() {
-    
+    if( currentSection < numerOfSections) {
+        showSectionByNumber(currentSection+1)
+    } else {
+        console.log("Cislo sekce nelze vice zvysit")
+    }
 }
 
 function previousSection() {
-    
+    if( currentSection > 1) {
+        showSectionByNumber(currentSection-1)
+    } else {
+        console.log("Cislo sekce nelze vice snizit")
+    }
+}
+
+let currentSectionObject, allSectionObjects
+function updateCSSclassHideForSectionByNumber(sectionNumber) {
+    allSectionObjects = document.getElementsByTagName("SECTION")
+    currentSectionObject = allSectionObjects[sectionNumber]
+
+    //console.log(allSectionObjects)
+
+    for (let index = 0; index < allSectionObjects.length; index++) {
+        const element = allSectionObjects[index];
+        element.classList.add('hide')        
+    }
+
+    currentSectionObject.classList.remove('hide')
 }
 
 function validateSectionNumber(sectionNumber) {
@@ -79,19 +140,36 @@ function validateSectionNumber(sectionNumber) {
 }
 
 function showQuestionByNumber(questionNumber) {
-    
+    if(validateQuestionNumber(questionNumber)) {
+        console.log("Otazka zmenena na " + questionNumber)
+        currentQuestion = questionNumber
+        var question = questions[questionNumber-1]
+        questionBody.innerText = question.questionText
+        questionOptions.innerHTML = []
+        var optionNumber = 0;
+        question.questionOptions.forEach(option => {
+            const button = document.createElement('button')
+            button.innerText = option.optionText
+            optionNumber++
+            button.dataset.optionNumber = optionNumber
+            // button.addEventListener('click',ulozitOdpovedAPokracovatNaDalsiOtazku)
+            questionOptions.appendChild(button)
+        })
+    } else {
+        console.log("Nelze " + questionNumber)
+    }
 }
 
 function validateQuestionNumber(questionNumber) {
-    
+    return questionNumber <= questions.length && questionNumber > 0 ? true : false
 }
 
 function nextQuestion() {
-    
+    showQuestionByNumber(currentQuestion+1)
 }
 
 function previousQuestion() {
-    
+    showQuestionByNumber(currentQuestion-1)
 }
 
 function sendVote(questionNumber, questionOption) {
@@ -124,96 +202,22 @@ function generateAndAppendLawsFromAnswersFromOnlineGroup(params) {
 }
 
 
+// ON LOAD
 
+window.onload = function() {
+    showSectionByNumber(1)
+    showQuestionByNumber(1)
 
-
-
-
-
-
-
-
-var cisloSekce = 1
-var cisloOtazky = 1
-const pocetSekci = 7
-const objektSekcePersony = document.getElementById('persona')
-
-function zmenitSekciNa(cislo) {
-    switch (cislo) {
-        case 1:
-            cisloSekce = cislo
-            aktualizovatHideTriduCSS(cisloSekce-1)
-            break;
-        case 2:
-            cisloSekce = cislo
-            aktualizovatHideTriduCSS(cisloSekce-1)
-            break;
-        case 3:
-            cisloSekce = cislo
-            aktualizovatHideTriduCSS(cisloSekce-1)
-            break;
-        case 4:
-            cisloSekce = cislo
-            aktualizovatHideTriduCSS(cisloSekce-1)
-            break;
-        case 5:
-            cisloSekce = cislo
-            aktualizovatHideTriduCSS(cisloSekce-1)
-            break;
-        case 6:
-            cisloSekce = cislo
-            aktualizovatHideTriduCSS(cisloSekce-1)
-            objektSekcePersony.classList.remove("active")
-            break;
-        case 7:
-            cisloSekce = cislo
-            aktualizovatHideTriduCSS(cisloSekce-2)
-            objektSekcePersony.classList.add("active")
-            break;
-        default:
-            console.log("Pouziti neplatneho cisla sekce pro zmenu")
-            break;
-    }
-}
-
-function predchoziSekce() {
-    if( cisloSekce > 1) {
-        zmenitSekciNa(cisloSekce-1)
-    } else {
-        console.log("Cislo sekce nelze vice snizit")
-    }
-}
-
-function dalsiSekce() {
-    if( cisloSekce < pocetSekci) {
-        zmenitSekciNa(cisloSekce+1)
-    } else {
-        console.log("Cislo sekce nelze vice zvysit")
-    }
-}
-
-function resetovatSekce() {
-    zmenitSekciNa(1)
-}
-
-function zmenitOtazkuNa(cislo) {
-    cisloOtazky = cislo
-    // zobrazitOtazku()
-}
-let aktualniObjektSekce, vsechnySekce
-function aktualizovatHideTriduCSS(cislo) {
-    vsechnySekce = document.getElementsByTagName("SECTION")
-    aktualniObjektSekce = vsechnySekce[cislo]
-
-    //console.log(vsechnySekce)
-
-    for (let index = 0; index < vsechnySekce.length; index++) {
-        const element = vsechnySekce[index];
-        element.classList.add('hide')        
-    }
-
-    aktualniObjektSekce.classList.remove('hide')
-}
+    socket.emit('prihlasit dite', {userId : socket.id, name: "jmeno", gender: "man", group: "slunicko"});
+    socket.on('nova sekce', function(novaSekce) {
+            console.log("Cislo nove global sekce: " + novaSekce)
+            showSectionByNumber(novaSekce)
+    });
+    socket.on('nova otazka', function(novaOtazka) {
+            console.log("Cislo nove global otazky: " + novaOtazka)
+            showQuestionByNumber(novaOtazka)
+    });
+};
 
 
 document.onkeydown = checkKey;
@@ -223,18 +227,21 @@ function checkKey(e) {
     e = e || window.event;
 
     if (e.keyCode == '38') {
-        dalsiSekce()
+        // up
+        nextQuestion()
     }
     else if (e.keyCode == '40') {
-        predchoziSekce()
+        // down
+        previousQuestion()
     }
     else if (e.keyCode == '37') {
-       predchoziSekce()
+        // left
+        previousSection()
     }
     else if (e.keyCode == '39') {
-        dalsiSekce()
+        // right
+        nextSection()
     }
-
 }
 
 

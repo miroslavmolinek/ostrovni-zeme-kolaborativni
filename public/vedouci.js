@@ -1,5 +1,5 @@
 // REQUIRE LIBRARIES
-//const csv = require('csvtojson')
+
 
 // KONSTANTY
 
@@ -19,11 +19,9 @@ const questionBody = document.getElementById('question-body')
 const questionOptions = document.getElementById('question-options')
 const responses = document.getElementById('responses')
 
-const questionsCSV = '../questionsOptionsLaws.csv'
-
 
 // PROMENNE
-let groupName, questionsJSON 
+let groupName 
 var currentSection = 2
 var currentQuestion = 1
 var onlineUsers = [
@@ -92,6 +90,8 @@ function closeGroup(params) {
 function sectionUpdate() {
     currentSection = sectionSelection.selectedIndex + 2
     console.log('Sekce zmenena na ' + currentSection)
+    
+    socket.emit('nova sekce', currentSection);
 }
 
 function sectionForward() {
@@ -110,7 +110,20 @@ function sectionPrevious() {
 
 function questionUpdate() {
     currentQuestion = questionSelection.selectedIndex + 1
+
+    questionBody.innerHTML = questions[currentQuestion-1].questionText
+
+    questionOptions.innerHTML = ""
+    questions[currentQuestion-1].questionOptions.forEach(option => {
+        const elem = document.createElement('p')
+        elem.innerText = option.optionText
+        questionOptions.appendChild(elem)
+        questionOptions.appendChild(document.createElement('hr'))
+    })
+
     console.log('Otazka zmenena na ' + currentQuestion)
+
+    socket.emit('nova otazka', currentQuestion);
 }
 
 function questionForward() {
@@ -146,20 +159,41 @@ function updateUserList() {
     }
 }
 
-// function questionsFromCSV() {
-//     csv()
-//     .fromFile(questionsCSV)
-//     .then((questionsJSON)=>{
-//         console.log(questionsJSON);
-//     })
-// }
 
 // EVENT LISTENERS
 
 window.onload = function() {
+    onlineUsers = []
     updateUserList()
-    //startGroup('Plyskavice')
-    questionsFromCSV()
+    startGroup('slunicko')
+    questionUpdate()
+
+    socket.emit('zpravaVedouciho', {userId : socket.id, msg: "pripojil se vedouci"});
+    socket.on('zprava vedouciho', function(msg) {
+            console.log("zprava vedouciho: " + msg)
+    });
+    socket.on('prihlasit dite', function(msg) {
+            if(groupName == msg.group) {
+                console.log("prihlasit dite: " + msg)
+                dite = {id : msg.userId, name : msg.name, status : 'connected', gender : msg.gender}
+                onlineUsers.push(dite)
+                console.log(onlineUsers)
+                updateUserList()
+                socket.emit('nova sekce', currentSection);
+                socket.emit('nova otazka', currentQuestion);
+            }else {
+                console.log("Spatna skupina pro prihlaseni ditete: " + msg)
+            }
+    });
+
+    socket.on('user disconnected', function(msg) {
+        onlineUsers.forEach(user => {
+            if(msg == user.id)
+            user.status = "disconnected"
+        })
+        updateUserList()
+    })
+
 };
 
 sectionButtonForward.addEventListener('click',sectionForward)
