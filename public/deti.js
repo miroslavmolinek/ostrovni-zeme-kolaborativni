@@ -27,13 +27,16 @@ const sectionPredVyhodnocenim = document.getElementById('pred-vyhodnocenim')
 const sectionVyhodnoceni = document.getElementById('vyhodnoceni')
 const laws = document.getElementById('laws')
 
+// Section ukonceni rady
+const sectionUkonceniRady = document.getElementById('ukonceni-rady')
+
 // Section persona
 const sectionPersona = document.getElementById('persona')
 const personaCard = document.getElementById('persona-card')
 const personaSummary = document.getElementById('persona-summary')
 
 // My constants
-const numerOfSections = 7
+const numerOfSections = 8
 
 // VARIABLES
 var currentSection = 1
@@ -90,9 +93,13 @@ function showSectionByNumber(sectionNumber) {
         case 6:
             currentSection = sectionNumber
             updateCSSclassHideForSectionByNumber(currentSection-1)
-            sectionPersona.classList.remove("active")
             break;
         case 7:
+            currentSection = sectionNumber
+            updateCSSclassHideForSectionByNumber(currentSection-1)
+            sectionPersona.classList.remove("active")
+            break;
+        case 8:
             currentSection = sectionNumber
             updateCSSclassHideForSectionByNumber(currentSection-2)
             sectionPersona.classList.add("active")
@@ -208,15 +215,21 @@ window.onload = function() {
     showSectionByNumber(1)
     showQuestionByNumber(1)
 
-    socket.emit('prihlasit dite', {userId : socket.id, name: "jmeno", gender: "man", group: "slunicko"});
-    socket.on('nova sekce', function(novaSekce) {
-            console.log("Cislo nove global sekce: " + novaSekce)
-            showSectionByNumber(novaSekce)
-    });
-    socket.on('nova otazka', function(novaOtazka) {
-            console.log("Cislo nove global otazky: " + novaOtazka)
-            showQuestionByNumber(novaOtazka)
-    });
+    //socket.emit('prihlasit dite', {userId : socket.id, name: "Mira", gender: "man", group: "slunicko"});
+    
+    var server = {}
+    socket.on('state of server', function(msg) {
+        server = {
+            groupName : msg.groupName, 
+            groupLeaderId : msg.groupLeaderId, 
+            onlineUsers : msg.onlineUsers, 
+            sectionNumberGlobal : msg.sectionNumberGlobal, 
+            questionNumberGlobal : msg.questionNumberGlobal
+        }
+        showSectionByNumber(server.sectionNumberGlobal)
+        showQuestionByNumber(server.questionNumberGlobal)
+        console.log(server)
+    })
 };
 
 
@@ -248,3 +261,23 @@ function checkKey(e) {
 
 
 // EVENT LISTENERS
+buttonLogin.addEventListener("click", function() {
+    var userGroup = loginInputGroup.value
+    var userName = loginInputName.value
+    var userGender = ""
+    loginInputMan.checked ? userGender = "man": loginInputWoman.checked ? userGender = "woman" : userGender = ""
+    if(userGroup && userName && userGender) {
+        // login
+        buttonLogin.innerHTML = "odeslano";
+        socket.emit('prihlasit dite', {userId : socket.id, name: userName, gender: userGender, group: userGroup});
+    } else {
+        // neco chybi
+        if(!userGroup) showToastError('Vyplňte název skupiny')
+        if(!userName) showToastError('Vyplňte vaše jméno')
+        if(!userGender) showToastError('Zvolte možnost pohlaví muž/žena')
+        
+    }
+    console.log(userGroup)
+    console.log(userName)
+    console.log(userGender)
+});

@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="deti.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <script src="https://kit.fontawesome.com/adc65fe8a9.js" crossorigin="anonymous"></script>
     <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
     <script>
@@ -22,10 +24,10 @@
                 <input type="text" class="pozadi-bile-pruhledne50 ramecek-nastylovat-nerovne" name="prezdivka" placeholder="Přihlaš se jménem" id="login-input-name">
             </div>
             <div>
-                <input type="radio" id="login-input-man" name="gender" value="muž">
-                <label for="muž">muž</label><br>
-                <input type="radio" id="login-input-woman" name="gender" value="žena">
-                <label for="žena">žena</label>
+                <input type="radio" id="login-input-man" name="gender" value="man">
+                <label for="man">muž</label><br>
+                <input type="radio" id="login-input-woman" name="gender" value="woman">
+                <label for="woman">žena</label>
             </div>
             <div>
                 <button id="button-login" class="button-login"><strong>PŘIDAT SE</strong></button>
@@ -67,7 +69,7 @@
 
     <section class="pred-vyhodnocenim hide" id="pred-vyhodnocenim">
         <header>
-            <h1>ZASEDÁNÍ RADY OSTROVA<br/>SKONČILO</h1>
+            <h1>ROZHODOVÁNÍ<br/>UKONČENO</h1>
         </header>
     </section>
 
@@ -84,6 +86,13 @@
             <p>LOREM, IPSUM DOLOR SIT AMET CONSECTETUR ADIPISICING ELIT.LOREM, IPSUM DOLOR SIT AMET CONSECTETUR</p>
         </div>
      
+    </section>
+    
+
+    <section class="pred-vyhodnocenim hide" id="ukonceni-rady">
+        <header>
+            <h1>ZASEDÁNÍ RADY OSTROVA<br/>SKONČILO</h1>
+        </header>
     </section>
 
 <section class="persona active pozadi-cerne-pruhledne50 hide" id="persona">
@@ -116,6 +125,9 @@
        
 
 </body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<script defer src="spolecne.js"></script>
 <script defer src="questions.js"></script>
 <script defer src="deti.js"></script>
 </html>

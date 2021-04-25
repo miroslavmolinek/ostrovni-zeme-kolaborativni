@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prostředí pro vedoucího</title>
     <link rel="stylesheet" href="./vedouci.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <script src="https://kit.fontawesome.com/adc65fe8a9.js" crossorigin="anonymous"></script>
     <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
     <script>
@@ -22,7 +24,7 @@
                 <button class="hide" id="button-group-close">ZAVŘÍT</button>
             </div>
         </div>
-        <div class="obsah">
+        <div class="obsah hide" id="section-content">
             <div class="hlavni padding-2">
                 <div class="radek-1">
                     <h2 class="nadpis-style">VÝBĚR SEKCE</h2>
@@ -35,8 +37,9 @@
                         <option>3: Rozhodování</option>
                         <option>4: Před vyhodnocením</option>
                         <option>5: Vyhodnocení</option>
-                        <option>6: Persona</option>
-                        <option>7: Persona dopady</option>
+                        <option>6: Ukončení rady</option>
+                        <option>7: Persona</option>
+                        <option>8: Persona dopady</option>
                         </select>
                         <button id="section-button-forward" class="tlacitka-sipky">
                         <i class="fas fa-caret-right"></i>
@@ -121,6 +124,9 @@
        
     </section>
 </body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<script src="./spolecne.js"></script>
 <script src="./questions.js"></script>
 <script src="./vedouci.js"></script>
 <script>

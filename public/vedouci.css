@@ -108,7 +108,7 @@ section.rozhrani > .obsah > .bocni > h4 {
  }
 
  .hide {
-     display: none;
+     display: none !important;
  }
 
  .button {
