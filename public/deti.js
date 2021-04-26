@@ -327,30 +327,6 @@ window.onload = function() {
 };
 
 
-document.onkeydown = checkKey;
-
-function checkKey(e) {
-
-    e = e || window.event;
-
-    if (e.keyCode == '38') {
-        // up
-        nextQuestion()
-    }
-    else if (e.keyCode == '40') {
-        // down
-        previousQuestion()
-    }
-    else if (e.keyCode == '37') {
-        // left
-        previousSection()
-    }
-    else if (e.keyCode == '39') {
-        // right
-        nextSection()
-    }
-}
-
 
 
 

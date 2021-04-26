@@ -81,20 +81,21 @@ function prepareGroup(name) {
         console.log('Updatovana skupina ' + groupName)
     } else { 
         groupName = inputGroupName.value
-        buttonGroupStart.classList.toggle('hide')
-        buttonGroupClose.classList.toggle('hide')
-        sectionContent.classList.toggle('hide')
+        buttonGroupStart.classList.add('hide')
+        buttonGroupClose.classList.remove('hide')
+        sectionContent.classList.remove('hide')
         inputGroupName.setAttribute("disabled", "true")
         console.log('Vytvorena skupina ' + groupName)
     }
     updateUserList()
 }
 
-function closeGroup(params) {
-    buttonGroupStart.classList.toggle('hide')
-    buttonGroupClose.classList.toggle('hide')
+function closeGroup() {
+    buttonGroupStart.classList.remove('hide')
+    buttonGroupClose.classList.add('hide')
     inputGroupName.removeAttribute("disabled")
     inputGroupName.focus()
+    sectionContent.classList.add('hide')
     groupName = ""
     console.log('Skupina ukoncena')
     onlineUsers = []
@@ -240,6 +241,30 @@ questionSelection.addEventListener('change', questionUpdate)
 buttonGroupStart.addEventListener('click', startGroup)
 buttonGroupClose.addEventListener('click', closeGroup)
 
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+
+    e = e || window.event;
+
+    if (e.keyCode == '38') {
+        // up
+        questionForward()
+    }
+    else if (e.keyCode == '40') {
+        // down
+        questionPrevious()
+    }
+    else if (e.keyCode == '37') {
+        // left
+        sectionPrevious()
+    }
+    else if (e.keyCode == '39') {
+        // right
+        sectionForward()
+    }
+}
+
 
 // SOCKET LISTENERS
 
@@ -282,7 +307,7 @@ socket.on('state of server', function(msg) {
     }
     if(server.groupName) {
         // join group created by another leader
-        prepareGroup(server.groupName)
+        server.groupName ? prepareGroup(server.groupName) : closeGroup()
 
         // updet user list in sync with the server group
         onlineUsers = []
