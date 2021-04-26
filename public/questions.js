@@ -17,65 +17,125 @@ personas = [
 
 questions=
 [
-    {   questionText:"1.Skupina občanů často kritizuje rozhodnutí právoplatně zvolené Rady ostrova. To zpomaluje a komplikuje výkon vašich rozhodnutí. Tito občané založili politickou skupinu a získávají si na ostrově stále více příznivců.",
+    {   
+        questionText:"1.Skupina občanů často kritizuje rozhodnutí právoplatně zvolené Rady ostrova. To zpomaluje a komplikuje výkon vašich rozhodnutí. Tito občané založili politickou skupinu a získávají si na ostrově stále více příznivců.",
+
         questionOptions: 
+
         [
+
             {   optionText:"Ponecháte záležitosti volný vývoj s tím, že skupinu omezíte pouze v případě, že začne vystupovat proti právům jiných lidí.",
+
                 optionLaw:"JE ZARUČNA SVOBODA PROJEVU A POLITICKÉHO SDRUŽOVÁNÍ.",
+
                 optionPersonas: 
+
                 [
+
                     {   personaName:"predseda", 
+
                         personaText:"Ve svobodných volbých jste se svým programem oslovili velkou většinu občanů. Tyto zatím poslední volby jste sice nevyhráli, ale ty ses stal předsedou nejsilnějí opoziční strany."
+
                     },
+
                     {   personaName:"feministka", 
-                        personaText:" Jsi ráda že můžeš svobovně volit jakkoukoli stranu a že se politici musí za to co dělají zodpovídat voličům. Budeš rozhodně volit strany, které respektují ženy i muže stejně. A to i v politice."
+
+                        personaText:"Jsi ráda, že existuje více politických stran a že se politici musí za to co dělají zodpovídat voličům. Budeš rozhodně podporovat stranu, které respektují ženy i muže stejně. A to i v politice."
+
                     },
+
                     {   personaName:"byvaly bezdomovec", 
+
                         personaText:"Po nových volbách se ujala vlády strana, která vyslyšela volání vaší organizace a přijala zákony, které pomáhají lidem bez domova začít nový život."
+
                     },
+
                     {   personaName:"Romka", 
-                        personaText:"Jsi ráda, že můžeš volit jakkoukoli stranu, kterou chceš. Minule tě naštvali, tak to letos ve volbách hodíš opozici."
+
+                        personaText:"O politiku ses nikdy moc nezajímala, ale říkáš si, že je asi dobré, že je povoleno více politických stran a že se politici musí za to co dělají zodpovídat voličům."
+
                     }
+
                 ]
+
             },
+
             {   optionText:"Zakážete činnost této skupiny a uvězníte lidi, kteří nebudou vaše rozhodnutí respektovat.",
+
                 optionLaw:"JSOU ZAKÁZÁNY VŠECHNY POLITICKÉ SKUPINY KROMĚ TÉ VLÁDNOUCÍ.",
+
                 optionPersonas: 
+
                 [
+
                     {   personaName:"predseda", 
+
                         personaText:"Omezování jiných stran než té jedné vládnoucí začalo šikanou od úřadů, vyšetřováním financování strany. A nyní jsi obviněn z protistátní činnosti, řada tvých kolegů je ve vězení a tvá strana je zakázána."
+
                     },
+
                     {   personaName:"feministka", 
-                        personaText:"Vždy ti byla sympatická Demokratická strana ostrova, která dbala na rovné přílěžitosti pro ženy i muže. Po zákazu všech stran je nemožné, aby se dostala do parlamentu a něco tím pádem změnila."
+
+                        personaText:"Vždy ti byla sympatická Demokratická strana ostrova (DSO), která dbala na rovné příležitosti pro ženy i muže. Po zákazu všech stran je nemožné, aby se dostala do parlamentu a něco tím pádem změnila. "
+
                     }, 
+
                     {   personaName:"byvaly bezdomovec", 
+
                         personaText:"Vládnoucí strana omezovala a nakonec zakázala všechny ostatní strany. Řada lidí z opoziční strany, která se s vaší organizací radila, je ve vězení. Není šance, že by změnil život lidí bez domova tak, jak jsi chtěl."
+
                     },
+
                     {   personaName:"Romka",
-                        personaText:"Ráda bys podpořila stranu, která bojuje za rovná práva Romů, ale to vládní strana není a ostatní strany nemůžou existovat."
+
+                        personaText:"Ráda bys nějak podpořila stranu, která bojuje za rovná práva Romů, ale to vládní strana není a ostatní strany nemůžou existovat."
+
                     }
+
                 ]
+
             },
+
             {   optionText:"Necháte skupinu formálně fungovat, ale zamezíte její účasti v příštích volbách do Rady ostrova.",
+
                 optionLaw:"FUNGOVÁNÍ JINÝCH POLITICKÝCH SKUPIN JE JEN FORMÁLNÍ. V TĚCHTO SKUPINÁCH SE SMĚJÍ OBČANÉ SDRUŽOVAT, ALE NEMAJÍ ŠANCI REÁLNĚ SE ÚČASTNIT VOLEB.",
+
                 optionPersonas:
+
                 [
+
                     {   personaName:"predseda",
+
                         personaText:"Proti vaší vůli a prostestům byl přijat zákon omezující financování naší strany a pak nám bylo znemožněno abychom vůbec kandidovali v příštích volbách. "
+
                     },
+
                     {   personaName:"feministka",
-                        personaText:"Vždy ti byla sympatická Demokratická strana ostrova, která dbala na rovné přílěžitosti pro ženy i muže. Teď po nemožnosti jiných stran kandidovat do parlamentu jsou šance na změnu v postavení žen mizivé."
+
+                        personaText:"Vždy ti byla sympatická Demokratická strana ostrova (DSO), která dbala na rovné přílěžitosti pro ženy i muže. Teď po nemožnosti jiných stran kandidovat do parlamentu jsou šance na změnu v postavení žen mizivé."
+
                     },
+
                     {   personaName:"byvaly bezdomovec",
+
                         personaText:"Vládnoucí strana omezila opozici a nakonec jim zakázala kandidovat v příštích volbách. S opoziční stranou spolupracovala i tvá organizace. Šance, že vládnoucí strana vyslyší vaše požadavky ohledně lidí bez domova, je prakticky nulová."
+
                     },
+
                     {   personaName:"Romka",
-                        personaText:"Ráda bys podpořila stranu, která bojuje za rovná práva Romů, ale to vládní strana není a ostatní strany existují jen formálně, vládní strana jejich názor nebere."
+
+                        personaText:"Ráda bys nějak podpořila stranu, která bojuje za rovná práva Romů, ale to vládní strana není a ostatní strany existují jen formálně."
+
                     }
+
                 ]
+
             }
 
+
+
         ]
+
     },
     {   questionText:"2. Z jiného ostrova připlulo asi 500 lidí. Někteří utíkají před diktátorským režimem a válkou. Jiní hledají lepší podmínky pro život. Všechny ale spojují jiné zvyky a přicházejí bez prostředků.",
         questionOptions:

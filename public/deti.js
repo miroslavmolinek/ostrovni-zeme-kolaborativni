@@ -284,6 +284,7 @@ function showImplication(params) {
         console.log('------')
         paragraph.innerText = question.questionOptions[maxOptionIndex].optionPersonas[thisUser.persona-1].personaText.trim() + ' '
         personaSummary.appendChild(paragraph)
+        index % 3 == 1 ? addBreak(2, "br") : false
     })
 }
 
@@ -291,6 +292,13 @@ function showPersona() {
     personaIndex = thisUser.persona-1
     personaName.innerText = personas[personaIndex].name
     personaText.innerText = personas[personaIndex].text
+}
+
+function addBreak(num = 2, elem = "br") {
+    for (let i = 0; i < num; i++) {
+        const paragraph = document.createElement(elem)
+        personaSummary.appendChild(paragraph)
+    }
 }
 
 
@@ -302,7 +310,7 @@ window.onload = function() {
     showSectionByNumber(1)
     showQuestionByNumber(1)
 
-    //socket.emit('prihlasit dite', {userId : socket.id, name: "Mira", gender: "man", group: "slunicko"});
+    socket.emit('prihlasit dite', {userId : socket.id, name: "Mira", gender: "man", group: "slunicko"});
     
     socket.on('state of server', function(msg) {
         server = {
