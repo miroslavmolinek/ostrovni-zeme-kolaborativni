@@ -109,7 +109,11 @@ io.on('connection', (socket) => {
                 sendSuccessBack('Skupina zavřena');
             } else {
                 // group set by somebody else
-                sendErrorBack('Skupina je vytvořena někým jiným');
+                // sendErrorBack('Skupina je vytvořena někým jiným');
+                sendError(groupLeaderId, 'Jiný vedoucí ti zavřel skupinu')
+                groupName = ""
+                groupLeaderId = socket.id
+                sendSuccessBack('Skupina zavřena');
             }
         }
     });
