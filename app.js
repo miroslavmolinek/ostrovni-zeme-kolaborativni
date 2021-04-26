@@ -17,10 +17,10 @@ app.get('/vedouci', (req, res) => {
 
 // app variables
 
-var groupName = "slunicko"
+var groupName = ""
 var groupLeaderId = ""
 var onlineUsers = []
-var sectionNumberGlobal = 3
+var sectionNumberGlobal = 2
 var questionNumberGlobal = 1
 var results = [[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
 
@@ -121,7 +121,7 @@ io.on('connection', (socket) => {
         onlineUsers.forEach(user => {
             if(user.id == socket.id) {
                 user.answerForQuestionIndex[msg.questionNumber-1] = msg.option
-                sendSuccessBack('Zahlasováno')
+                sendSuccessBack('Zahlasováno ' +msg.questionNumber +msg.option)
             }
         })
 
@@ -264,6 +264,7 @@ function changeUserToConnected(id, msg) {
             user.gender = msg.gender
             user.group = msg.group
             user.answerForQuestionIndex = []
+            user.persona = choosePersona(msg.gender)
             sendSuccess(id, 'Úspěšné přihlášení')
             sendSuccessToLeader('Úspěšné přihlášení dítěte: ' + msg.name)
             sent = true
@@ -287,4 +288,27 @@ function disconnectUser(id) {
             user.name ? sendErrorToLeader('Odpojil se uživatel: ' + user.name ) : false
         }
     })
+}
+
+lastMan = 3
+lastWoman = 4
+function choosePersona(gender) {
+    if(gender == "man") {
+        if(lastMan == 1) {
+            lastMan = 3 
+            return 3
+        } else {
+            lastMan = 1
+            return 1
+        }
+    }
+    if(gender == "woman") {
+        if(lastWoman == 2) {
+            lastWoman = 4 
+            return 4
+        } else {
+            lastWoman = 2
+            return 2
+        }
+    }
 }

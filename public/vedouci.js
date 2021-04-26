@@ -19,7 +19,7 @@ const questionButtonPrevious = document.getElementById('question-button-previous
 const questionSelection = document.getElementById('question-selection')
 const questionBody = document.getElementById('question-body')
 const questionOptions = document.getElementById('question-options')
-const responses = document.getElementById('responses')
+const results = document.getElementById('results')
 
 
 // PROMENNE
@@ -148,7 +148,7 @@ function setQuestionByNumber(questionNumber) {
         questionOptions.appendChild(elem)
         questionOptions.appendChild(document.createElement('hr'))
     })
-    console.log('Otazka zmenena na ' + currentQuestion)
+    //console.log('Otazka zmenena na ' + currentQuestion)
 }
 
 function questionUpdate() {
@@ -187,6 +187,32 @@ function updateUserList() {
             userList.appendChild(elem)
         })
     }
+}
+
+function updateResults(res) {
+    // console.log(results)
+    results.innerHTML = ""
+    res.forEach(function callback(item, index) {
+        total = item[0] + item[1] + item[2]
+        maximum = Math.max(...item)
+        const nadpis = document.createElement('h3')
+        const opt1 = document.createElement('p')
+        const opt2 = document.createElement('p')
+        const opt3 = document.createElement('p')
+        nadpis.innerText = "Otázka " + (index+1)
+        opt1.innerText = "A: " + item[0] + " z " + total + " hlasů (" + ((item[0]/total)*100) + "%)"
+        opt2.innerText = "B: " + item[1] + " z " + total + " hlasů (" + ((item[1]/total)*100) + "%)"
+        opt3.innerText = "C: " + item[2] + " z " + total + " hlasů (" + ((item[2]/total)*100) + "%)"
+        
+        item[0] == maximum ? opt1.dataset.max = "max" : false
+        item[1] == maximum ? opt2.dataset.max = "max" : false
+        item[2] == maximum ? opt3.dataset.max = "max" : false
+
+        results.appendChild(nadpis)
+        results.appendChild(opt1)
+        results.appendChild(opt2)
+        results.appendChild(opt3)        
+    })
 }
 
 
@@ -252,7 +278,7 @@ socket.on('state of server', function(msg) {
         onlineUsers : msg.onlineUsers, 
         sectionNumberGlobal : msg.sectionNumberGlobal, 
         questionNumberGlobal : msg.questionNumberGlobal,
-        results : msgresults
+        results : msg.results
     }
     if(server.groupName) {
         // join group created by another leader
@@ -267,9 +293,11 @@ socket.on('state of server', function(msg) {
         })
         updateUserList()
 
-        setSectionByNumber(server.sectionNumberGlobal)
+        updateResults(server.results)
 
-        setQuestionByNumber(server.questionNumberGlobal)
+        server.sectionNumberGlobal != currentSection ? setSectionByNumber(server.sectionNumberGlobal) : false
+
+        server.questionNumberGlobal != currentQuestion ? setQuestionByNumber(server.questionNumberGlobal) : false
 
         console.log(server)
     }

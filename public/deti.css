@@ -251,7 +251,7 @@ section.rozhodovani > .radek-2 > button {
 }
 
 section.rozhodovani > .radek-2 > button.stisknuto {
-    background: red;
+    background: white;
 }
 
 /* section.rozhodovani > .radek-2 > button:last-child {

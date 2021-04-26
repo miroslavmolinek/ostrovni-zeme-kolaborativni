@@ -33,6 +33,8 @@ const sectionUkonceniRady = document.getElementById('ukonceni-rady')
 // Section persona
 const sectionPersona = document.getElementById('persona')
 const personaCard = document.getElementById('persona-card')
+const personaName = document.getElementById('persona-name')
+const personaText = document.getElementById('persona-text')
 const personaSummary = document.getElementById('persona-summary')
 
 // My constants
@@ -42,6 +44,8 @@ const numerOfSections = 8
 var currentSection = 1
 var currentQuestion = 1
 var localQuestionAnswersInOrder = []
+var server = {}
+var thisUser = {}
 
 
 // FUNKCE
@@ -73,36 +77,48 @@ function showSectionByNumber(sectionNumber) {
         case 1:
             currentSection = sectionNumber
             updateCSSclassHideForSectionByNumber(currentSection-1)
+            document.body.style.backgroundPositionY = '0%'
             break;
         case 2:
             currentSection = sectionNumber
             updateCSSclassHideForSectionByNumber(currentSection-1)
+            document.body.style.backgroundPositionY = '0%'
             break;
         case 3:
             currentSection = sectionNumber
             updateCSSclassHideForSectionByNumber(currentSection-1)
+            document.body.style.backgroundPositionY = '0%'
             break;
         case 4:
             currentSection = sectionNumber
             updateCSSclassHideForSectionByNumber(currentSection-1)
+            document.body.style.backgroundPositionY = '0%'
             break;
         case 5:
             currentSection = sectionNumber
             updateCSSclassHideForSectionByNumber(currentSection-1)
+            document.body.style.backgroundPositionY = '0%'
+            showLaws()
             break;
         case 6:
             currentSection = sectionNumber
             updateCSSclassHideForSectionByNumber(currentSection-1)
+            document.body.style.backgroundPositionY = '0%'
             break;
         case 7:
             currentSection = sectionNumber
             updateCSSclassHideForSectionByNumber(currentSection-1)
+            document.body.style.backgroundPositionY = '50%'
             sectionPersona.classList.remove("active")
+            showPersona()
             break;
         case 8:
             currentSection = sectionNumber
             updateCSSclassHideForSectionByNumber(currentSection-2)
+            document.body.style.backgroundPositionY = '70%'
             sectionPersona.classList.add("active")
+            showPersona()
+            showImplication()
             break;
         default:
             console.log("Pouziti neplatneho cisla sekce pro zmenu")
@@ -159,7 +175,7 @@ function showQuestionByNumber(questionNumber) {
             button.innerText = option.optionText
             optionNumber++
             button.dataset.optionNumber = optionNumber
-            // button.addEventListener('click',ulozitOdpovedAPokracovatNaDalsiOtazku)
+            button.addEventListener('click',processAnswer)
             questionOptions.appendChild(button)
         })
     } else {
@@ -183,13 +199,23 @@ function sendVote(questionNumber, questionOption) {
     
 }
 
-let answer
-function selectAnswer(answer) {
-    
+function processAnswer(answerClick) {
+    deselectAnswers(answerClick)
+    selectAnswer(answerClick.target)
+    zmenitHlas(currentQuestion, answerClick.target.dataset.optionNumber)
 }
 
-function deselectAnswer(answer) {
-    
+function selectAnswer(answer) {
+    answer.classList.toggle('stisknuto')
+}
+
+function deselectAnswers(answer) {
+    var children = answer.target.parentElement.children
+    console.log(children)
+    for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        child.classList.remove('stisknuto')
+    }
 }
 
 function checkAnswerIfSelected(answer) {
@@ -223,6 +249,52 @@ function zmenitHlas(question = currentQuestion, option) {
     pridatHlas(question, option)
 }
 
+function showLaws(params) {
+
+    // vzcistit
+    laws.innerHTML = ""
+
+    questions.forEach(function callback(question, index) {
+        const paragraph = document.createElement('p')
+        maximum = Math.max(...server.results[index])
+        maxOptionIndex = 0
+        for (let i = 2; i > -1; i--) {       
+            server.results[index][i] == maximum ? maxOptionIndex = i : false
+            // console.log(i)
+        }
+        console.log(maxOptionIndex)
+        console.log('------')
+        paragraph.innerText = question.questionOptions[maxOptionIndex].optionLaw
+        laws.appendChild(paragraph)
+    })
+}
+
+function showImplication(params) {
+    personaSummary.innerHTML = ""
+
+    questions.forEach(function callback(question, index) {
+        const paragraph = document.createElement('span')
+        maximum = Math.max(...server.results[index])
+        maxOptionIndex = 0
+        for (let i = 2; i > -1; i--) {       
+            server.results[index][i] == maximum ? maxOptionIndex = i : false
+            // console.log(i)
+        }
+        console.log(maxOptionIndex)
+        console.log('------')
+        paragraph.innerText = question.questionOptions[maxOptionIndex].optionPersonas[thisUser.persona-1].personaText.trim() + ' '
+        personaSummary.appendChild(paragraph)
+    })
+}
+
+function showPersona() {
+    personaIndex = thisUser.persona-1
+    personaName.innerText = personas[personaIndex].name
+    personaText.innerText = personas[personaIndex].text
+}
+
+
+
 
 // ON LOAD
 
@@ -232,7 +304,6 @@ window.onload = function() {
 
     socket.emit('prihlasit dite', {userId : socket.id, name: "Mira", gender: "man", group: "slunicko"});
     
-    var server = {}
     socket.on('state of server', function(msg) {
         server = {
             groupName : msg.groupName, 
@@ -242,16 +313,17 @@ window.onload = function() {
             questionNumberGlobal : msg.questionNumberGlobal,
             results : msg.results
         }
-        showSectionByNumber(server.sectionNumberGlobal)
-        showQuestionByNumber(server.questionNumberGlobal)
+
+        server.onlineUsers.forEach(user => {
+            if(user.id == socket.id) {
+                thisUser = user
+            }
+        })
+
+        server.sectionNumberGlobal != currentSection ? showSectionByNumber(server.sectionNumberGlobal) : false
+        server.questionNumberGlobal != currentQuestion ? showQuestionByNumber(server.questionNumberGlobal) : false
         console.log(server)
     })
-
-    zmenitHlas(1,2)
-    zmenitHlas(1,1)
-    zmenitHlas(1,3)
-    zmenitHlas(2,2)
-    zmenitHlas(2,3)
 };
 
 

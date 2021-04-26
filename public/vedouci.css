@@ -153,6 +153,15 @@ section.rozhrani > .obsah > .bocni > h4 {
     margin-top: 0.2em;
 }
 
+.vysledky-wrap > p {
+    margin: 0;
+    padding: 0.3em
+}
+
+.vysledky-wrap > p[data-max="max"] {
+    background: yellow
+}
+
 /* 
 
 

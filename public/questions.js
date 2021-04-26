@@ -1,3 +1,20 @@
+personas = [
+    {   name : 'Matěj',
+        obrazekUrl : '',
+        text : 'Jsi mladý předseda politické strany, která je v parlamentu v opozici a otevřeně se hlásíš ke své homosexualitě. Pocházíš z bohatší rodiny, která na jihu ostrova podniká v zemědělství a potravinářství. '},
+    {   name : 'Nina', 
+        obrazekUrl : '',
+        text : 'Jsi mladá žena, která aktivně ve veřejném prostoru hájí práva žen. Pracuješ v organizaci, která pomáhá ženám zažívající domácí násilí. Většinu rodiny máš v zahraničí, žiješ v hlavním městě ostrova a užíváš si všech jeho možností.'},
+    {   name : 'Kristián', 
+        obrazekUrl : '',
+        text : 'Jsi 50letý muž. Dvanáct let jsi žil na ulici, kam ses dostal po vyhazovu z práce a těžkém rozvodu. Kvůli drobným krádežím jsi byl i ve vězení. Nyní jsi členem organizace, která se snaží vyřešit otázku bezdomovectví na ostrově.'},
+    {   name : 'Andrea', 
+        obrazekUrl : '',
+        text : 'Jsi žena, hrdá Romka a patříš k chudším lidem na ostrově. Se svým životem jsi spokojená, dokud tvá rodina, především prarodiče, je v pořádku'}
+]
+
+
+
 questions=
 [
     {   questionText:"1.Skupina občanů často kritizuje rozhodnutí právoplatně zvolené Rady ostrova. To zpomaluje a komplikuje výkon vašich rozhodnutí. Tito občané založili politickou skupinu a získávají si na ostrově stále více příznivců.",
