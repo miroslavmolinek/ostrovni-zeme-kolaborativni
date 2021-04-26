@@ -102,11 +102,13 @@ io.on('connection', (socket) => {
         if(!groupName) {
             // group not set yet
             sendErrorBack('Skupina nelze zavřít, protože žádná ještě neexistuje');
+            sendServerState() 
         } else {
             if(groupLeaderId == socket.id) {
                 // group already set by you
                 groupName = ""
                 sendSuccessBack('Skupina zavřena');
+                sendServerState() 
             } else {
                 // group set by somebody else
                 // sendErrorBack('Skupina je vytvořena někým jiným');
@@ -114,6 +116,7 @@ io.on('connection', (socket) => {
                 groupName = ""
                 groupLeaderId = socket.id
                 sendSuccessBack('Skupina zavřena');
+                sendServerState() 
             }
         }
     });
