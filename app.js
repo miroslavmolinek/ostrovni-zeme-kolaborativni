@@ -107,16 +107,17 @@ io.on('connection', (socket) => {
             if(groupLeaderId == socket.id) {
                 // group already set by you
                 groupName = ""
-                sendSuccessBack('Skupina zavřena');
+                groupLeaderId = ""
                 sendServerState() 
+                sendSuccessBack('Skupina zavřena');
             } else {
                 // group set by somebody else
                 // sendErrorBack('Skupina je vytvořena někým jiným');
                 sendError(groupLeaderId, 'Jiný vedoucí ti zavřel skupinu')
                 groupName = ""
-                groupLeaderId = socket.id
-                sendSuccessBack('Skupina zavřena');
+                groupLeaderId = ""
                 sendServerState() 
+                sendSuccessBack('Cizí skupina zavřena');
             }
         }
     });
@@ -281,8 +282,10 @@ function changeUserToConnected(id, msg) {
 }
 
 function sendServerState() {
+    console.log('sending server state')
     onlineUsers.forEach(user => {
         if(user.status == "leader" || user.status == "connected") {
+            console.log('sent to ' + user.id)
             io.to(user.id).emit('state of server', {groupName : groupName, groupLeaderId : groupLeaderId, onlineUsers : onlineUsers, sectionNumberGlobal : sectionNumberGlobal, questionNumberGlobal : questionNumberGlobal, results : results})
         }
     })

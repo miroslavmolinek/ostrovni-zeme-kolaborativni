@@ -70,37 +70,48 @@ function startGroup(name) {
 }
 
 function prepareGroup(name) {
+    appearanceOfOpenedGroup()
 
     if(typeof name == "string") { 
         groupName = name
         inputGroupName.value = name
-        buttonGroupStart.classList.add('hide')
-        buttonGroupClose.classList.remove('hide')
-        sectionContent.classList.remove('hide')
-        inputGroupName.setAttribute("disabled", "true")
-        console.log('Updatovana skupina ' + groupName)
+        console.log('Updatovana string skupina ' + groupName)
     } else { 
         groupName = inputGroupName.value
-        buttonGroupStart.classList.add('hide')
-        buttonGroupClose.classList.remove('hide')
-        sectionContent.classList.remove('hide')
-        inputGroupName.setAttribute("disabled", "true")
-        console.log('Vytvorena skupina ' + groupName)
+        console.log('Vytvorena button skupina ' + groupName)
     }
     updateUserList()
 }
 
 function closeGroup() {
+    prepareCloseGroup()
+    console.log('close group')
+    socket.emit('close group', "");
+}
+
+function prepareCloseGroup() {
+    console.log('prepare close group')
+    groupName = ""
+    onlineUsers = []
+    updateUserList()
+    appearanceOfClosedGroup()
+}
+
+function appearanceOfClosedGroup() {
+    // closed and ready to start, yellow
     buttonGroupStart.classList.remove('hide')
     buttonGroupClose.classList.add('hide')
     inputGroupName.removeAttribute("disabled")
     inputGroupName.focus()
     sectionContent.classList.add('hide')
-    groupName = ""
-    console.log('Skupina ukoncena')
-    onlineUsers = []
-    updateUserList()
-    socket.emit('close group', "");
+}
+
+function appearanceOfOpenedGroup() {
+    // opened and locked
+    buttonGroupStart.classList.add('hide')
+    buttonGroupClose.classList.remove('hide')
+    sectionContent.classList.remove('hide')
+    inputGroupName.setAttribute("disabled", "true")
 }
 
 function sendSectionByNumber(sectionNumber) {
@@ -297,6 +308,7 @@ socket.on('user disconnected', function(msg) {
 
 var server = {}
 socket.on('state of server', function(msg) {
+    console.log("Got new state of server:")
     server = {
         groupName : msg.groupName, 
         groupLeaderId : msg.groupLeaderId, 
@@ -307,7 +319,7 @@ socket.on('state of server', function(msg) {
     }
     if(server.groupName) {
         // join group created by another leader
-        server.groupName ? prepareGroup(server.groupName) : closeGroup()
+        prepareGroup(server.groupName)
 
         // updet user list in sync with the server group
         onlineUsers = []
@@ -325,5 +337,7 @@ socket.on('state of server', function(msg) {
         server.questionNumberGlobal != currentQuestion ? setQuestionByNumber(server.questionNumberGlobal) : false
 
         console.log(server)
+    } else {
+        prepareCloseGroup()
     }
 })
