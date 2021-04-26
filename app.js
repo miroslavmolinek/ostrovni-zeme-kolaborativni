@@ -81,17 +81,17 @@ io.on('connection', (socket) => {
             // group not set yet
             groupName = msg
             groupLeaderId = socket.id
-            sendSuccessBack('group created');
+            sendSuccessBack('Skupina vytvořena');
             sendServerState() 
         } else {
             if(groupLeaderId == socket.id) {
                 // group already set by you
                 groupName = msg
-                sendInfoBack('group updated');
+                sendInfoBack('Skupina aktualizována');
                 sendServerState() 
             } else {
                 // group set by somebody else
-                sendErrorBack('Group is already set by someone else');
+                sendErrorBack('Skupina je již vytvořena někým jiným');
                 sendServerState() 
             }
         }
@@ -101,15 +101,15 @@ io.on('connection', (socket) => {
         console.log('close group by ' + socket.id);
         if(!groupName) {
             // group not set yet
-            sendErrorBack('group error - group not set yet');
+            sendErrorBack('Skupina nelze zavřít, protože žádná ještě neexistuje');
         } else {
             if(groupLeaderId == socket.id) {
                 // group already set by you
                 groupName = ""
-                sendSuccessBack('group closed');
+                sendSuccessBack('Skupina zavřena');
             } else {
                 // group set by somebody else
-                sendErrorBack('error - group is set by someone else');
+                sendErrorBack('Skupina je vytvořena někým jiným');
             }
         }
     });
@@ -121,7 +121,7 @@ io.on('connection', (socket) => {
         onlineUsers.forEach(user => {
             if(user.id == socket.id) {
                 user.answerForQuestionIndex[msg.questionNumber-1] = msg.option
-                sendSuccessBack('Zahlasováno ' +msg.questionNumber +msg.option)
+                //sendSuccessBack('Zahlasováno ' +msg.questionNumber +msg.option)
             }
         })
 
@@ -250,7 +250,7 @@ function changeUserToLeader(userId) {
     onlineUsers.forEach(user => {
         if(user.id == userId) {
             user.status = "leader"
-            sendSuccess(userId, 'Zapsan jako leader na serveru')
+            //sendSuccess(userId, 'Zapsan jako leader na serveru')
         }
     })
 }

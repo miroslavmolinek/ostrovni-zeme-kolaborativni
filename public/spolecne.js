@@ -48,11 +48,11 @@ function showToastInfo(text, duration = 10000) {
 
 
 socket.on('error', function(msg) {
-    showToastError(msg, 30000)
+    showToastError(msg, 15000)
 });
 socket.on('success', function(msg) {
-    showToastSuccess(msg, 30000)
+    showToastSuccess(msg, 3000)
 });
 socket.on('info', function(msg) {
-    showToastInfo(msg, 30000)
+    showToastInfo(msg, 5000)
 });
