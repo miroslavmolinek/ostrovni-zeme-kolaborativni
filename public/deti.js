@@ -310,7 +310,7 @@ window.onload = function() {
     showSectionByNumber(1)
     showQuestionByNumber(1)
 
-    socket.emit('prihlasit dite', {userId : socket.id, name: "Mira", gender: "man", group: "slunicko"});
+    //socket.emit('prihlasit dite', {userId : socket.id, name: "Mira", gender: "man", group: "slunicko"});
     
     socket.on('state of server', function(msg) {
         server = {
